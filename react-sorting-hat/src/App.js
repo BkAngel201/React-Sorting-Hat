@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import data from "./data"
+import Welcome from './components/Welcome'
+import SortingProcess from './components/SortingProcess'
+import HouseAssignation from './components/HouseAssignation'
+import { Switch, Route } from 'react-router-dom'
+
 
 function App() {
+  const [answerValue, setAnswerValue] = useState(0)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Switch>
+        <Route path="/sortingProcess">
+          <SortingProcess questions={data.questions} answerValue={answerValue} setAnswerValue={setAnswerValue} />
+        </Route>
+        <Route path="/houseAssignation">
+          <HouseAssignation answerValue={answerValue} houses={data.houseInfo}/>
+        </Route>
+        <Route path="/">
+          <Welcome welcomeMessage={data.welcomeMessage} />
+        </Route>
+      </Switch>
     </div>
+    
   );
 }
 
